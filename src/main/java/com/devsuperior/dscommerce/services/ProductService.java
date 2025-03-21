@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
+    @PreAuthorize("hasAnyRole('ROLE_OPERATOR', 'ROLE_ADMIN')")
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
         Optional<Product> result = repository.findById(id);
@@ -37,6 +39,7 @@ public class ProductService {
         return dto;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     public ProductDTO insert(ProductDTO dto) {
         Product entity = new Product();
@@ -45,6 +48,7 @@ public class ProductService {
         return new ProductDTO(entity);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto) {
         try {
@@ -57,6 +61,7 @@ public class ProductService {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         if (!repository.existsById(id)) {
