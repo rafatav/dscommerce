@@ -23,7 +23,6 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    @PreAuthorize("hasAnyRole('ROLE_OPERATOR', 'ROLE_ADMIN')")
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
         Optional<Product> result = repository.findById(id);
