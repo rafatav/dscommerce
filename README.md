@@ -16,7 +16,7 @@ DSCommerce is a RESTful e-commerce backend system developed in Java using Spring
 - Payment registration (with timestamp)
 - Order reports (Admin only)
 
-## 🛠Tech Stack
+## Tech Stack
 
 - **Java 17**
 - **Spring Boot**
